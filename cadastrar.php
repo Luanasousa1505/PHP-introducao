@@ -1,68 +1,15 @@
 <?php
-
-include "config.php";
-
-    if(isset($_POST['submit'])){
-
-        $primeironome = $_POST['primeironome'];
-        $ultimonome = $_POST['ultimonome'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $genero = $_POST['genero'];
-
-        $sql = "INSERT INTO `cliente`.`usuarios`
-         (`primeironome`, `ultimonome`, `email`, `password`,`genero`)
-         VALUES ('$primeironome', '$ultimonome', '$email', '$password', '$genero')";
-
-        $result = $conn->query($sql);
-        
-        if($result == TRUE){
-
-            echo "Novo registro criado com sucesso!";
-        }else{
-
-            echo "Erro: ". $sql. "<br>" . $conn->error;
-        }
-
-        $conn->close();
-
-    }
+    $nome = $_POST['nomecliente'];
+    $sobrenome = $_POST['sobrenomecliente'];
+    $sexo = $_POST['sexo'];
+    $strcon = mysqli_connect('localhost','root','senac','cliente') or
+    die ("erro de Conexão do banco,");
+    $sql = "INSERT INTO adastro VALUES";
+    $sql = "('$nome', '$sobrenome', 'sexo')";
+    mysqli_query($strcon,$sql) or die ("Erro ao cadastrar");
+    mysqli_close($strcon);
+    echo "cliente Cadastrado com Sucesso!";
+    echo "<a href='formulario.html'> clique aqui para novo cadastro </a>";
+    echo "<a href='formulario.html'> clique aqui para realizar uma consulta </a>";
 
 ?>
-
-<!DOCTYPE html>
-
-<html>
-<body>
-    <h2>Formulário de Cadastro</h2>
-    <form action="" method="POST">
-        <fieldset>
-            <legend>Informações Pessoais:</legend>
-            Primeiro Nome:<br>
-            <input type="text" name="primeironome">
-            <br>
-            Último nome:<br>
-            <input type="text" name="ultimonome">
-            <br>
-            E-mail: <br>
-            <input type="email" name="email">
-            <br>
-            Password: <br>
-            <input type="password" name="password">
-            <br>
-            Gênero: <br>
-            <input type="radio" name="genero" value="Masculino"> Masculino
-            <input type="radio" name="genero" value="Feminino"> Feminino
-            <input type="radio" name="genero" value="Outros"> Outros
-            <br><br>
-            <input type="submit" name="submit" value="submit">
-        </fieldset>
-
-    </form>
-</body>
-<?php
-    echo "<a href='consultar.php'> Clique aqui para realizar uma Consulta</a><br>";
-?>
-
-
-</html>
